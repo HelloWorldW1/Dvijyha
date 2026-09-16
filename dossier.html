@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover"
+    >
+
+    <meta name="theme-color" content="#07080b">
+
+    <title>Досье • Движушные Войска</title>
+
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap");
+
+        :root {
+            --bg: #07080b;
+            --panel: #11131a;
+            --panel-2: #181b24;
+            --text: #f5f0e6;
+            --muted: #aaa7a0;
+            --gold: #d8b567;
+            --gold-light: #f0d58e;
+            --line: rgba(216, 181, 103, 0.24);
+            --radius: 24px;
+            --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            background: var(--bg);
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+            background:
+                radial-gradient(
+                    circle at 50% -10%,
+                    rgba(216, 181, 103, 0.13),
+                    transparent 34%
+                ),
+                linear-gradient(180deg, #090a0e, #07080b);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .site {
+            width: min(100%, 1100px);
+            margin: 0 auto;
+            padding: 14px 14px 60px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 2px 14px;
+        }
+
+        .brand {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.65rem;
+            font-weight: 700;
+        }
+
+        .brand span {
+            color: var(--gold);
+        }
+
+        .menu-btn {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: var(--panel);
+            color: var(--gold-light);
+            cursor: pointer;
+        }
+
+        .bars {
+            width: 20px;
+            display: grid;
+            gap: 4px;
+        }
+
+        .bars i {
+            display: block;
+            height: 2px;
+            background: currentColor;
+            border-radius: 99px;
+        }
+
+        .hero-copy {
+            padding: 22px 6px 34px;
+            text-align: center;
+        }
+
+        .kicker {
+            margin: 0 0 12px;
+            color: var(--gold);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        .hero-copy h1 {
+            margin: 0;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(2.8rem, 9vw, 4.8rem);
+            line-height: 0.94;
+        }
+
+        .hero-copy p:last-child {
+            max-width: 780px;
+            margin: 18px auto 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .dossier {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 18px;
+        }
+
+        .card {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: linear-gradient(180deg, var(--panel-2), var(--panel));
+            box-shadow: var(--shadow);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                var(--gold),
+                transparent
+            );
+        }
+
+        .card-head {
+            display: grid;
+            grid-template-columns: 92px minmax(0, 1fr);
+            gap: 14px;
+            align-items: center;
+            padding: 19px 18px 10px;
+        }
+
+        .photo {
+            width: 92px;
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            border: 1px solid rgba(216, 181, 103, 0.35);
+            border-radius: 18px;
+            background: #101219;
+        }
+
+        .photo img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .photo-placeholder {
+            display: none;
+            place-items: center;
+            width: 100%;
+            height: 100%;
+            color: #777;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .card-label {
+            margin: 0 0 5px;
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .name {
+            margin: 0;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(1.8rem, 6vw, 2.4rem);
+            line-height: 1;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .content {
+            padding: 8px 18px 22px;
+        }
+
+        .block-title {
+            margin: 16px 0 8px;
+            color: var(--gold);
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .description {
+            margin: 0;
+            color: #e8e4db;
+            font-size: 0.92rem;
+            line-height: 1.72;
+        }
+
+        .awards {
+            display: grid;
+            gap: 8px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .award {
+            padding: 11px 12px;
+            border: 1px solid rgba(216, 181, 103, 0.13);
+            border-radius: 14px;
+            background: rgba(216, 181, 103, 0.045);
+            color: #efe9db;
+            font-size: 0.86rem;
+            line-height: 1.45;
+        }
+
+        .award::before {
+            content: "✦";
+            margin-right: 8px;
+            color: var(--gold);
+        }
+
+        .award-empty {
+            color: var(--muted);
+            border-style: dashed;
+        }
+
+        .footer {
+            padding: 35px 0 8px;
+            text-align: center;
+            color: #77766f;
+            font-size: 0.74rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* Боковое меню */
+
+        .drawer {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .drawer.open {
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.68);
+            backdrop-filter: blur(5px);
+        }
+
+        .panel {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: min(86vw, 370px);
+            height: 100%;
+            padding: 18px;
+            background: #101219;
+            border-left: 1px solid var(--line);
+            transform: translateX(100%);
+            transition: 0.28s;
+        }
+
+        .drawer.open .panel {
+            transform: translateX(0);
+        }
+
+        .panel-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 28px;
+        }
+
+        .panel-title {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .close {
+            border: 0;
+            background: none;
+            color: #d9d6cf;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .nav {
+            display: grid;
+            gap: 9px;
+        }
+
+        .nav a {
+            padding: 15px;
+            border: 1px solid rgba(216, 181, 103, 0.14);
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.018);
+            font-weight: 700;
+        }
+
+        .nav a.active {
+            border-color: var(--line);
+            background: rgba(216, 181, 103, 0.08);
+            color: var(--gold-light);
+        }
+
+        .nav small {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-weight: 400;
+        }
+
+        @media (min-width: 760px) {
+            .site {
+                padding-inline: 24px;
+            }
+
+            .dossier {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .card:first-child {
+                grid-column: 1 / -1;
+            }
+
+            .card-head {
+                grid-template-columns: 120px minmax(0, 1fr);
+                padding: 24px 24px 10px;
+            }
+
+            .photo {
+                width: 120px;
+                border-radius: 22px;
+            }
+
+            .content {
+                padding: 8px 24px 27px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .card-head {
+                grid-template-columns: 78px minmax(0, 1fr);
+            }
+
+            .photo {
+                width: 78px;
+                border-radius: 16px;
+            }
+
+            .description {
+                font-size: 0.88rem;
+            }
+
+            .award {
+                font-size: 0.82rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="site">
+
+        <header class="topbar">
+
+            <a class="brand" href="index.html">
+                Движушные <span>Войска</span>
+            </a>
+
+            <button
+                class="menu-btn"
+                id="openMenu"
+                aria-label="Открыть меню"
+            >
+                <span class="bars">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </button>
+
+        </header>
+
+
+        <section class="hero-copy">
+
+            <p class="kicker">
+                Архив Движушных Войск
+            </p>
+
+            <h1>
+                Досье
+            </h1>
+
+            <p>
+                Личные дела, легендарные должности и награды
+                участников Движушных Войск.
+            </p>
+
+        </section>
+
+
+        <main class="dossier">
+
+        <article class="card">
+            <div class="card-head">
+                <div class="photo">
+                    <img
+                        src="photos/01.png"
+                        alt="Фото Курманов Астемир"
+                        onerror="this.style.display='none'; this.parentElement.querySelector('.photo-placeholder').style.display='grid';"
+                    >
+                    <span class="photo-placeholder">Фото</span>
+                </div>
+
+                <div class="person-title">
+                    <p class="card-label">Досье №01</p>
+                    <h2 class="name">Курманов Астемир</h2>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3 class="block-title">Описание</h3>
+                <p class="description">Божиею поспешествующею милостью, Император и Самодержец Всешкольный, Карагачевский, Алтудский, Псычохский, Кишпекский; Царь Псыншокский, Царь Чегемский, Царь Солдатский, Царь Учебное, Царь Лесное, Царь Прохладненский; Государь Нальчинский и Великий Князь Янтарное, Саратовское, Баксанский, Нарталинский и Приэльбруский, Князь Тырнауза, Терека, Баксаненка и Майского, Александровская, Белостокский, Корельский, Тверской, Югорский, Октябрьское, Вятский, Болгарский и иных; Государь и Великий Князь Школьных земель, 5А класс, 6А класс, 7А класс, 8А класс, 9А класс, 10А класс, 11А класс, 5Б класс, 6Б класс, 7Б класс, 8Б класс и всей школы повелитель; и Государь Спортзалских земель, Столовских и Коридорных земель и Уличных областей, Местной кафешки великий князь и иных наследный государь и обладатель; Государь нашей компашки; Наследник Николая Зуликаховича, Герцог Руссички, Биологички, Математички и Англичанки и прочая, и прочая, и прочая.</p>
+
+                <h3 class="block-title">Награды</h3>
+
+                <ul class="awards">
+                <li class="award">Царь всея школа</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-head">
+                <div class="photo">
+                    <img
+                        src="photos/02.png"
+                        alt="Фото Карамизов Азамат"
+                        onerror="this.style.display='none'; this.parentElement.querySelector('.photo-placeholder').style.display='grid';"
+                    >
+                    <span class="photo-placeholder">Фото</span>
+                </div>
+
+                <div class="person-title">
+                    <p class="card-label">Досье №02</p>
+                    <h2 class="name">Карамизов Азамат</h2>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3 class="block-title">Описание</h3>
+                <p class="description">Великий воин и пожиратель. Заместитель Глава Силового Блока нашей компашки. Моггнул всю школу даже не посмотрев на него. Бывший Вице-Адмирал Бургер Тауна. Действующий воздухан разряда сверхзвуковая аэродинамическая труба</p>
+
+                <h3 class="block-title">Награды</h3>
+
+                <ul class="awards">
+                <li class="award">Орден Бургера 1 Степени</li>
+                <li class="award">Орден Бургера 2 Степени</li>
+                <li class="award">Орден Бургера 3 Степени</li>
+                <li class="award">Медаль &quot;Копатыч&quot;</li>
+                <li class="award">Медаль &quot;Воздухан&quot; 1 Степени</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-head">
+                <div class="photo">
+                    <img
+                        src="photos/03.png"
+                        alt="Фото Кетбиев Астемир"
+                        onerror="this.style.display='none'; this.parentElement.querySelector('.photo-placeholder').style.display='grid';"
+                    >
+                    <span class="photo-placeholder">Фото</span>
+                </div>
+
+                <div class="person-title">
+                    <p class="card-label">Досье №03</p>
+                    <h2 class="name">Кетбиев Астемир</h2>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3 class="block-title">Описание</h3>
+                <p class="description">Заместитель Царя, Глава Силового Блока компашки. Ветеран боевых действий. Действующий Глава проекта «Движуха Прайм».</p>
+
+                <h3 class="block-title">Награды</h3>
+
+                <ul class="awards">
+                <li class="award">Медаль &quot;Движуха Прайм&quot;</li>
+                <li class="award">Медаль &quot;Ветеран&quot;</li>
+                <li class="award">Медаль &quot;Заслуги перед Царем&quot;</li>
+                <li class="award">Медаль &quot;Кирпич&quot;</li>
+                <li class="award">Медаль &quot;Выслуга лет&quot;</li>
+                <li class="award">Орден &quot;Моггнул нервы Аси&quot; 1 степени</li>
+                <li class="award">Орден Карлика 1 степени</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-head">
+                <div class="photo">
+                    <img
+                        src="photos/04.png"
+                        alt="Фото Цагов Астемир"
+                        onerror="this.style.display='none'; this.parentElement.querySelector('.photo-placeholder').style.display='grid';"
+                    >
+                    <span class="photo-placeholder">Фото</span>
+                </div>
+
+                <div class="person-title">
+                    <p class="card-label">Досье №04</p>
+                    <h2 class="name">Цагов Астемир</h2>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3 class="block-title">Описание</h3>
+                <p class="description">Глава проекта «Ц1ып1э Бесконечности». Мастер боевых искусств. Обладатель техники Расширение Территории - Шоколадный Мир и просто прикольный челик. Ветеран боевых действий</p>
+
+                <h3 class="block-title">Награды</h3>
+
+                <ul class="awards">
+                <li class="award">Медаль &quot;Самый Большой Ц1ып1э в мире&quot;</li>
+                <li class="award">Орден &quot;Заслуги перед Компашкой&quot; 2 Степени</li>
+                <li class="award">Орден &quot;Ветеран боевых действий&quot; 1 степени</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-head">
+                <div class="photo">
+                    <img
+                        src="photos/05.png"
+                        alt="Фото Оршагдугов Батраз"
+                        onerror="this.style.display='none'; this.parentElement.querySelector('.photo-placeholder').style.display='grid';"
+                    >
+                    <span class="photo-placeholder">Фото</span>
+                </div>
+
+                <div class="person-title">
+                    <p class="card-label">Досье №05</p>
+                    <h2 class="name">Оршагдугов Батраз</h2>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3 class="block-title">Описание</h3>
+                <p class="description">Дипломатический Посол Африканского Блока. Мастер спорта по вырыванию слов из контекста. Мастер спорта по отсутствию логики и здравого смысла.</p>
+
+                <h3 class="block-title">Награды</h3>
+
+                <ul class="awards">
+                <li class="award">Медаль &quot;Получил Паспорт РФ будучи мигрантом&quot;</li>
+                <li class="award">Медаль &quot;Пирожочек&quot;</li>
+                <li class="award">Медаль &quot;Мы хуэдэ&quot;</li>
+                <li class="award">Орден &quot;Женофоб&quot; 1 степени</li>
+                <li class="award">Орден &quot;Медина и фо&quot; 1 степени</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-head">
+                <div class="photo">
+                    <img
+                        src="photos/06.png"
+                        alt="Фото Хагаушев Артур"
+                        onerror="this.style.display='none'; this.parentElement.querySelector('.photo-placeholder').style.display='grid';"
+                    >
+                    <span class="photo-placeholder">Фото</span>
+                </div>
+
+                <div class="person-title">
+                    <p class="card-label">Досье №06</p>
+                    <h2 class="name">Хагаушев Артур</h2>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3 class="block-title">Описание</h3>
+                <p class="description">Глава проекта «дай списать плиз». Заместитель кассирши кафешки возле школы. Нацист и Авториторист</p>
+
+                <h3 class="block-title">Награды</h3>
+
+                <ul class="awards">
+                <li class="award">Медаль &quot;Враг Альбины&quot;</li>
+                <li class="award">Медаль &quot;получил пирожок с полки&quot;</li>
+                <li class="award">Медаль &quot;Зыгъазэ&quot;</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-head">
+                <div class="photo">
+                    <img
+                        src="photos/07.jpg"
+                        alt="Фото Архагов Арсен"
+                        onerror="this.style.display='none'; this.parentElement.querySelector('.photo-placeholder').style.display='grid';"
+                    >
+                    <span class="photo-placeholder">Фото</span>
+                </div>
+
+                <div class="person-title">
+                    <p class="card-label">Досье №07</p>
+                    <h2 class="name">Архагов Арсен</h2>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3 class="block-title">Описание</h3>
+                <p class="description">стажер</p>
+
+                <h3 class="block-title">Награды</h3>
+
+                <ul class="awards">
+                <li class="award award-empty">—</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="card-head">
+                <div class="photo">
+                    <img
+                        src="photos/08.jpg"
+                        alt="Фото Кертбиев Ислам"
+                        onerror="this.style.display='none'; this.parentElement.querySelector('.photo-placeholder').style.display='grid';"
+                    >
+                    <span class="photo-placeholder">Фото</span>
+                </div>
+
+                <div class="person-title">
+                    <p class="card-label">Досье №08</p>
+                    <h2 class="name">Кертбиев Ислам</h2>
+                </div>
+            </div>
+
+            <div class="content">
+                <h3 class="block-title">Описание</h3>
+                <p class="description">стажер</p>
+
+                <h3 class="block-title">Награды</h3>
+
+                <ul class="awards">
+                <li class="award">Медаль &quot;Исламджан&quot;</li>
+                </ul>
+            </div>
+        </article>
+
+        </main>
+
+
+        <footer class="footer">
+            Движушные Войска • МКОУ СОШ №1 им. Х. Т. Башорова • с. Карагач
+        </footer>
+
+    </div>
+
+
+    <div class="drawer" id="drawer">
+
+        <div class="backdrop" id="closeMenu"></div>
+
+        <aside class="panel">
+
+            <div class="panel-head">
+
+                <div class="panel-title">
+                    Меню
+                </div>
+
+                <button
+                    class="close"
+                    id="closeMenuButton"
+                    aria-label="Закрыть меню"
+                >
+                    ×
+                </button>
+
+            </div>
+
+            <nav class="nav">
+
+                <a href="index.html">
+                    Главное меню
+                    <small>Главная страница</small>
+                </a>
+
+                <a href="memes.html">
+                    Мемы
+                    <small>Будет добавлено позже</small>
+                </a>
+
+                <a href="stories.html">
+                    Рассказы
+                    <small>Кампания «Black Man»</small>
+                </a>
+
+                <a
+                    class="active"
+                    href="dossier.html"
+                >
+                    Досье
+                    <small>Состав Движушных Войск</small>
+                </a>
+
+            </nav>
+
+        </aside>
+
+    </div>
+
+
+    <script>
+        const drawer = document.getElementById("drawer");
+        const openMenu = document.getElementById("openMenu");
+        const closeMenu = document.getElementById("closeMenu");
+        const closeMenuButton = document.getElementById("closeMenuButton");
+
+        function setMenu(open) {
+            drawer.classList.toggle("open", open);
+            document.body.style.overflow = open ? "hidden" : "";
+        }
+
+        openMenu.addEventListener("click", () => setMenu(true));
+        closeMenu.addEventListener("click", () => setMenu(false));
+        closeMenuButton.addEventListener("click", () => setMenu(false));
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                setMenu(false);
+            }
+        });
+    </script>
+
+</body>
+</html>
