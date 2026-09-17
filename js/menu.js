@@ -1,23 +1,29 @@
 
-function toggleMenu(force) {
-    const drawer = document.getElementById("drawer");
-    const isOpen = drawer.classList.contains("open");
-    const nextState = typeof force === "boolean" ? force : !isOpen;
+const drawer = document.getElementById("drawer");
+const openButton = document.querySelector("[data-menu]");
+const closeButtons = document.querySelectorAll("[data-close]");
 
-    drawer.classList.toggle("open", nextState);
-    document.body.style.overflow = nextState ? "hidden" : "";
+function setMenu(open) {
+    if (!drawer) {
+        return;
+    }
+
+    drawer.classList.toggle("open", open);
+    document.body.style.overflow = open ? "hidden" : "";
 }
 
-document.querySelectorAll("[data-menu]").forEach((button) => {
-    button.addEventListener("click", () => toggleMenu());
+openButton?.addEventListener("click", () => {
+    setMenu(true);
 });
 
-document.querySelectorAll("[data-close]").forEach((element) => {
-    element.addEventListener("click", () => toggleMenu(false));
+closeButtons.forEach((element) => {
+    element.addEventListener("click", () => {
+        setMenu(false);
+    });
 });
 
 document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
-        toggleMenu(false);
+        setMenu(false);
     }
 });
