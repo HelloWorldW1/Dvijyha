@@ -1,5 +1,5 @@
 
-/* Общие стили сайта «Движушные Войска» */
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap");
 
 :root {
     --bg: #07080b;
@@ -30,13 +30,33 @@ body {
     color: var(--text);
     font-family: "Inter", sans-serif;
     background:
-        radial-gradient(circle at 50% -10%, rgba(216, 181, 103, 0.13), transparent 34%),
+        radial-gradient(
+            circle at 50% -10%,
+            rgba(216, 181, 103, 0.13),
+            transparent 34%
+        ),
         linear-gradient(180deg, #090a0e, #07080b);
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.045;
+    background-image:
+        linear-gradient(rgba(255,255,255,.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.1) 1px, transparent 1px);
+    background-size: 34px 34px;
 }
 
 a {
     color: inherit;
     text-decoration: none;
+}
+
+button {
+    font: inherit;
 }
 
 .site {
@@ -45,11 +65,15 @@ a {
     padding: 14px 14px 60px;
 }
 
+/* ===== Верхняя панель ===== */
+
 .topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 6px 2px 14px;
+    position: relative;
+    z-index: 20;
 }
 
 .brand {
@@ -81,10 +105,13 @@ a {
 }
 
 .bars i {
+    display: block;
     height: 2px;
     background: currentColor;
     border-radius: 99px;
 }
+
+/* ===== Боковое меню ===== */
 
 .drawer {
     position: fixed;
@@ -116,7 +143,8 @@ a {
     background: #101219;
     border-left: 1px solid var(--line);
     transform: translateX(100%);
-    transition: 0.28s;
+    transition: transform 0.28s ease;
+    box-shadow: -24px 0 70px rgba(0, 0, 0, 0.45);
 }
 
 .drawer.open .panel {
@@ -157,7 +185,8 @@ a {
     font-weight: 700;
 }
 
-.nav a.active {
+.nav a.active,
+.nav a:hover {
     border-color: var(--line);
     background: rgba(216, 181, 103, 0.08);
     color: var(--gold-light);
@@ -165,14 +194,39 @@ a {
 
 .nav small {
     display: block;
-    color: var(--muted);
     margin-top: 3px;
+    color: var(--muted);
     font-weight: 400;
 }
 
+/* ===== Главная ===== */
+
+.banner {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #0e1016;
+    box-shadow: var(--shadow);
+}
+
+.banner img {
+    width: 100%;
+    display: block;
+    max-height: 460px;
+    object-fit: cover;
+}
+
+.fallback {
+    min-height: 220px;
+    display: grid;
+    place-items: center;
+    color: var(--gold-light);
+    font: 700 clamp(2rem, 8vw, 4rem) "Cormorant Garamond", serif;
+}
+
 .hero-copy {
-    text-align: center;
     padding: 30px 6px 34px;
+    text-align: center;
 }
 
 .kicker {
@@ -198,42 +252,25 @@ a {
     line-height: 1.7;
 }
 
-.banner {
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-}
-
-.banner img {
-    width: 100%;
-    display: block;
-}
-
-.quick,
-.stories {
+.quick {
     display: grid;
-    gap: 12px;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
 }
 
-.quick-card,
-.story-card {
+.quick-card {
+    display: block;
     padding: 20px;
     border: 1px solid var(--line);
     border-radius: 19px;
     background: linear-gradient(180deg, var(--panel-2), var(--panel));
-}
-
-.quick-card strong,
-.story-card h2 {
-    display: block;
-    font-family: "Cormorant Garamond", serif;
-    color: var(--gold-light);
+    box-shadow: var(--shadow);
 }
 
 .quick-card strong {
-    font-size: 1.55rem;
+    display: block;
+    color: var(--gold-light);
+    font: 700 1.55rem "Cormorant Garamond", serif;
 }
 
 .quick-card span {
@@ -241,45 +278,132 @@ a {
     font-size: 0.8rem;
 }
 
-.story-card h2 {
-    margin: 4px 0 12px;
-    font-size: 2rem;
+/* ===== Досье ===== */
+
+.dossier {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
 }
 
-.story-parts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+.card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    box-shadow: var(--shadow);
 }
 
-.story-part {
-    padding: 8px 10px;
-    border: 1px solid rgba(216, 181, 103, 0.16);
-    border-radius: 12px;
-    font-size: 0.82rem;
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--gold),
+        transparent
+    );
 }
 
-.footer {
-    padding: 35px 0 8px;
-    text-align: center;
-    color: #77766f;
-    font-size: 0.74rem;
-    letter-spacing: 0.08em;
+.card-head {
+    display: grid;
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 14px;
+    align-items: center;
+    padding: 19px 18px 10px;
+}
+
+.photo {
+    width: 92px;
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border: 1px solid rgba(216, 181, 103, 0.35);
+    border-radius: 18px;
+    background: #101219;
+    color: #777;
+}
+
+.photo img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.photo-fallback {
+    display: none;
+}
+
+.card-label,
+.block-title {
+    color: var(--gold);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
 }
 
-@media (min-width: 760px) {
-    .site {
-        padding-inline: 24px;
-    }
-
-    .quick {
-        grid-template-columns: repeat(4, 1fr);
-    }
+.card-label {
+    margin: 0 0 5px;
 }
 
+.name {
+    margin: 0;
+    font: 700 clamp(1.8rem, 6vw, 2.4rem) / 1 "Cormorant Garamond", serif;
+}
 
-/* ===== Раздел рассказов ===== */
+.content {
+    padding: 8px 18px 22px;
+}
+
+.block-title {
+    margin: 16px 0 8px;
+}
+
+.description {
+    margin: 0;
+    color: #e8e4db;
+    font-size: 0.92rem;
+    line-height: 1.72;
+}
+
+.awards {
+    display: grid;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.award {
+    padding: 11px 12px;
+    border: 1px solid rgba(216, 181, 103, 0.13);
+    border-radius: 14px;
+    background: rgba(216, 181, 103, 0.045);
+    color: #efe9db;
+    font-size: 0.86rem;
+    line-height: 1.45;
+}
+
+.award::before {
+    content: "✦";
+    margin-right: 8px;
+    color: var(--gold);
+}
+
+.award-empty {
+    color: var(--muted);
+    border-style: dashed;
+}
+
+/* ===== Каталог рассказов ===== */
 
 .stories {
     display: grid;
@@ -304,10 +428,8 @@ a {
 
 .story-card h2 {
     margin: 4px 0 12px;
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(1.9rem, 7vw, 2.7rem);
-    line-height: 1;
     color: var(--gold-light);
+    font: 700 clamp(1.9rem, 7vw, 2.7rem) / 1 "Cormorant Garamond", serif;
 }
 
 .story-parts {
@@ -326,6 +448,8 @@ a {
     line-height: 1.4;
 }
 
+/* ===== Страница рассказа ===== */
+
 .story-reading {
     width: min(100%, 850px);
     margin: 0 auto;
@@ -340,48 +464,70 @@ a {
 
 .story-title {
     margin: 0;
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(2rem, 7vw, 3.4rem);
-    line-height: 0.95;
     color: var(--gold-light);
+    font: 700 clamp(2rem, 7vw, 3.5rem) / 0.95 "Cormorant Garamond", serif;
 }
 
 .chapter-title {
-    margin: 6px 0 26px;
+    margin: 7px 0 26px;
     color: var(--gold);
     font-size: 0.78rem;
     font-weight: 800;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
 }
 
-.story-placeholder {
-    min-height: 35vh;
-    display: grid;
-    place-items: center;
-    padding: 28px;
-    border: 1px dashed var(--line);
+.story-text {
+    padding: 24px 20px;
+    border: 1px solid var(--line);
     border-radius: 20px;
-    background: rgba(216, 181, 103, 0.025);
-    text-align: center;
+    background: linear-gradient(180deg, var(--panel-2), var(--panel));
+    box-shadow: var(--shadow);
 }
 
-.story-placeholder p {
-    max-width: 520px;
+.story-text p {
+    margin: 0 0 18px;
+    color: #e8e4db;
+    font-size: 0.96rem;
+    line-height: 1.85;
+}
+
+.story-text p:last-child {
+    margin-bottom: 0;
+}
+
+.story-video {
+    margin-top: 18px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    background: #050608;
+    box-shadow: var(--shadow);
+}
+
+.story-video video {
+    width: 100%;
+    height: auto;
+    display: block;
+    background: #000;
+}
+
+.video-caption {
     margin: 0;
+    padding: 12px 15px;
     color: var(--muted);
-    line-height: 1.8;
+    font-size: 0.78rem;
+    line-height: 1.5;
 }
 
 .story-nav {
     display: flex;
     gap: 10px;
-    margin-top: 26px;
+    margin-top: 24px;
 }
 
 .story-nav a {
     flex: 1;
-    min-width: 0;
     padding: 14px 16px;
     border: 1px solid var(--line);
     border-radius: 15px;
@@ -395,6 +541,51 @@ a {
     visibility: hidden;
 }
 
+/* ===== Подвал ===== */
+
+.footer {
+    padding: 35px 0 8px;
+    text-align: center;
+    color: #77766f;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* ===== Адаптация ===== */
+
+@media (min-width: 760px) {
+    .site {
+        padding-inline: 24px;
+    }
+
+    .quick {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .dossier {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card:first-child {
+        grid-column: 1 / -1;
+    }
+
+    .card-head {
+        grid-template-columns: 120px minmax(0, 1fr);
+        padding: 24px 24px 10px;
+    }
+
+    .photo {
+        width: 120px;
+        border-radius: 22px;
+    }
+
+    .content {
+        padding: 8px 24px 27px;
+    }
+}
+
 @media (max-width: 520px) {
     .story-nav {
         flex-direction: column;
@@ -402,5 +593,32 @@ a {
 
     .story-nav a.disabled {
         display: none;
+    }
+
+    .story-text {
+        padding: 20px 16px;
+    }
+}
+
+@media (max-width: 380px) {
+    .site {
+        padding-inline: 11px;
+    }
+
+    .card-head {
+        grid-template-columns: 78px minmax(0, 1fr);
+    }
+
+    .photo {
+        width: 78px;
+        border-radius: 16px;
+    }
+
+    .description {
+        font-size: 0.88rem;
+    }
+
+    .award {
+        font-size: 0.82rem;
     }
 }
