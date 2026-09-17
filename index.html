@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
 
@@ -19,7 +20,9 @@
 
     <div class="site">
 
+
         <header class="topbar">
+
             <a class="brand" href="index.html">
                 Движушные <span>Войска</span>
             </a>
@@ -35,46 +38,74 @@
                     <i></i>
                 </span>
             </button>
+
         </header>
 
-        
-<section class="banner">
-    <img src="photos/banner.png" alt="Баннер Движушных Войск">
-</section>
 
-<section class="hero-copy">
-    <p class="kicker">Архив Движушных Войск №1</p>
+        <section class="banner">
 
-    <h1>Главное меню</h1>
+            <img
+                src="photos/banner.png"
+                alt="Баннер Движушных Войск"
+                onerror="
+                    this.style.display='none';
+                    document.getElementById('bannerFallback').style.display='grid';
+                "
+            >
 
-    <p>
-        Добро пожаловать в цифровой архив Движушных Войск.
-        Здесь находятся досье участников, рассказы и локальные мемы.
-        Новые разделы будут постепенно добавляться.
-    </p>
-</section>
+            <div
+                id="bannerFallback"
+                class="fallback"
+                style="display:none;"
+            >
+                Движушные Войска №1
+            </div>
 
-<section class="quick">
-    <a class="quick-card" href="dossier.html">
-        <strong>Досье</strong>
-        <span>Состав Движушных Войск</span>
-    </a>
+        </section>
 
-    <a class="quick-card" href="stories.html">
-        <strong>Рассказы</strong>
-        <span>Кампания «Black Man»</span>
-    </a>
 
-    <div class="quick-card">
-        <strong>Мемы</strong>
-        <span>Раздел будет добавлен</span>
-    </div>
+        <section class="hero-copy">
 
-    <div class="quick-card">
-        <strong>№1</strong>
-        <span>Архив с. Карагач</span>
-    </div>
-</section>
+            <p class="kicker">
+                Архив Движушных Войск №1
+            </p>
+
+            <h1>
+                Главное меню
+            </h1>
+
+            <p>
+                Добро пожаловать в цифровой архив Движушных Войск.
+                Здесь находятся досье участников, рассказы и локальные мемы.
+                Новые разделы будут постепенно добавляться.
+            </p>
+
+        </section>
+
+
+        <section class="quick">
+
+            <a class="quick-card" href="dossier.html">
+                <strong>Досье</strong>
+                <span>Состав Движушных Войск</span>
+            </a>
+
+            <a class="quick-card" href="stories.html">
+                <strong>Рассказы</strong>
+                <span>Кампании и хроники</span>
+            </a>
+
+            <div class="quick-card">
+                <strong>Мемы</strong>
+                <span>Раздел будет добавлен</span>
+            </div>
+
+            <div class="quick-card">
+                <strong>№1</strong>
+                <span>Архив с. Карагач</span>
+            </div>
+
+        </section>
 
 
         <footer class="footer">
@@ -83,43 +114,52 @@
 
     </div>
 
-    
-<div class="drawer" id="drawer">
-    <div class="backdrop" data-close></div>
 
-    <aside class="panel">
-        <div class="panel-head">
-            <div class="panel-title">Меню</div>
+    <div class="drawer" id="drawer">
 
-            <button class="close" data-close aria-label="Закрыть">
-                ×
-            </button>
-        </div>
+        <div class="backdrop" data-close></div>
 
-        <nav class="nav">
-            <a class="active" href="index.html">
-                Главное меню
-                <small>Главная страница</small>
-            </a>
+        <aside class="panel">
 
-            <a href="memes.html">
-                Мемы
-                <small>Будет добавлено позже</small>
-            </a>
+            <div class="panel-head">
 
-            <a class="" href="stories.html">
-                Рассказы
-                <small>Кампания «Black Man»</small>
-            </a>
+                <div class="panel-title">
+                    Меню
+                </div>
 
-            <a class="" href="dossier.html">
-                Досье
-                <small>Состав Движушных Войск</small>
-            </a>
-        </nav>
-    </aside>
-</div>
+                <button
+                    class="close"
+                    data-close
+                    aria-label="Закрыть"
+                >
+                    ×
+                </button>
 
+            </div>
+
+            <nav class="nav">
+                
+                <a class="active" href="index.html">
+                    Главное меню
+                    <small>Главная страница</small>
+                </a>
+                <a class="" href="memes.html">
+                    Мемы
+                    <small>Будет добавлено позже</small>
+                </a>
+                <a class="" href="stories.html">
+                    Рассказы
+                    <small>Кампании и хроники</small>
+                </a>
+                <a class="" href="dossier.html">
+                    Досье
+                    <small>Состав Движушных Войск</small>
+                </a>
+            </nav>
+
+        </aside>
+
+    </div>
 
     <script src="js/menu.js"></script>
 
